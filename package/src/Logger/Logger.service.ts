@@ -1,4 +1,4 @@
-import { ConsoleLogger, Inject, Logger } from '@nestjs/common';
+import { ConsoleLogger, Inject } from '@nestjs/common';
 import { ProviderNames } from './enums/ProviderNames.enum';
 import { LoggerModuleRootOptions } from './types/LoggerModue.types';
 
@@ -10,7 +10,8 @@ export class LoggerService extends ConsoleLogger {
     super();
   }
 
-  log(message: any, context?: string) {
+  log(message: any, context?: string): void {
+    this.log(this.options);
     this.log(message, context);
     this.log('Hej im not gey', context);
   }

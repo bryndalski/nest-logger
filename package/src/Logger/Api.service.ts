@@ -1,7 +1,5 @@
 export class LoggerApiService {
-  constructor() {}
-
-  public static sendToApi() {
+  public static sendToApi(): void {
     try {
     } catch (error) {}
   }
