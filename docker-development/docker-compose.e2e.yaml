@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  cognito-nest-e2e:
+    image: cognito-nest-e2e
+    build:
+      context: ../
+      dockerfile: docker-development/e2e/Dockerfile
+    env_file:
+      - .env  
+    volumes:
+      - ../package/src:/package/src
+      - ../package/tests:/package/tests
