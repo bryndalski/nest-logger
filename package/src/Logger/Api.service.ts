@@ -1,6 +1,5 @@
 export class LoggerApiService {
-  public static sendToApi(): void {
-    try {
-    } catch (error) {}
+  public sendToApi(): void {
+    console.log('sendToApi');
   }
 }

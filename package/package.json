@@ -1,5 +1,5 @@
 {
-  "name": "@bryndalski/nestLogger",
+  "name": "@bryndalski/nest-logger",
   "version": "1.0.0",
   "description": "Nestjs Cognito package",
   "author": "bryndalski",

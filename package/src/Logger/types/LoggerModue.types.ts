@@ -21,5 +21,5 @@ export type LoggerModuleRootOptions = {
   /**
    * Log levels send to api
    */
-  persistLogLevels: (keyof LogLevel)[];
+  persistLogLevels: LogLevel[];
 } & Partial<LoggerService>;

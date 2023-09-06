@@ -1,18 +1,20 @@
-import { ConsoleLogger, Inject } from '@nestjs/common';
-import { ProviderNames } from './enums/ProviderNames.enum';
+import { ConsoleLogger } from '@nestjs/common';
 import { LoggerModuleRootOptions } from './types/LoggerModue.types';
+import { LoggerApiService } from './Api.service';
 
 export class LoggerService extends ConsoleLogger {
-  constructor(
-    @Inject(ProviderNames.LOGGER_OPTIONS)
-    private networkOptions: LoggerModuleRootOptions,
-  ) {
+  private readonly apiService = new LoggerApiService();
+  constructor(private readonly networkOptions?: LoggerModuleRootOptions) {
     super();
+    console.log('INITIATING_GLOBAL_LOGGER');
   }
 
-  log(message: any, context?: string): void {
-    this.log(this.options);
-    this.log(message, context);
-    this.log('Hej im not gey', context);
+  public log(message, context?: string): void {
+    console.log('====================================');
+    console.log(this.networkOptions);
+    console.log('====================================');
+    super.log(this.networkOptions, context);
+    super.log(message, context);
+    this.apiService.sendToApi();
   }
 }
