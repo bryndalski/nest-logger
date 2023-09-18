@@ -1,3 +1,3 @@
-export enum ProviderNames {
-  LOGGER_OPTIONS = 'LOGGER_OPTIONS',
-}
+export const LOGGER_OPTIONS = Symbol('LOGGER_OPTIONS');
+export const LOGGER_SERVICE_TOKEN = Symbol('LOGGER_SERVICE_TOKEN');
+export const LOGGER_SERVICE_CONTEXT = Symbol('LOGGER_SERVICE_CONTEXT');
