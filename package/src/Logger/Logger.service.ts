@@ -1,18 +1,29 @@
-import { ConsoleLogger, Inject } from '@nestjs/common';
-import { ProviderNames } from './enums/ProviderNames.enum';
+import { ConsoleLogger, Inject, Optional } from '@nestjs/common';
+import {
+  LOGGER_OPTIONS,
+  LOGGER_SERVICE_CONTEXT,
+} from './Symbols/ProviderNames.enum';
 import { LoggerModuleRootOptions } from './types/LoggerModue.types';
 
 export class LoggerService extends ConsoleLogger {
+  constructor();
+  constructor(internalContext: string);
+  constructor(internalContext: string, networkOptions: LoggerModuleRootOptions);
   constructor(
-    @Inject(ProviderNames.LOGGER_OPTIONS)
-    private networkOptions: LoggerModuleRootOptions,
+    @Optional()
+    @Inject(LOGGER_SERVICE_CONTEXT)
+    private readonly internalContext?: string,
+    @Optional()
+    @Inject(LOGGER_OPTIONS)
+    private readonly networkOptions?: LoggerModuleRootOptions,
   ) {
-    super();
+    super(internalContext);
+    super.log('LoggerService constructor');
+    super.log(this.networkOptions, this.internalContext);
   }
 
-  log(message: any, context?: string): void {
-    this.log(this.options);
-    this.log(message, context);
-    this.log('Hej im not gey', context);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  log(message: any): void {
+    super.log(message);
   }
 }
