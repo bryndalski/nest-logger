@@ -13,40 +13,25 @@ import {
   exports: [LoggerModuleCore, LoggerService],
 })
 export class LoggerModule {
-  // static root(options: LoggerModuleRootOptions): DynamicModule {
-  //   return {
-  //     module: LoggerModule,
-  //     imports: [LoggerModuleCore.rootLogger(options)],
-  //   };
-  // }
-
-  // static forSubmodule(): DynamicModule {
-  //   return {
-  //     module: LoggerModule,
-  //     imports: [LoggerModuleCore.forSubmodule({})],
-  //   };import { LoggerModule } from './Logger.module';
-
-  // }
-
   static forRoot(options: LoggerModuleRootOptions): DynamicModule {
     const loggerServiceProvider = {
       provide: LoggerService,
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       useFactory: (loggerService: LoggerService) => {
         return loggerService;
       },
-      inject: [LOGGER_SERVICE_TOKEN],
+      inject: [LOGGER_SERVICE_TOKEN, LOGGER_OPTIONS],
     };
-
+    console.log(options);
     return {
       module: LoggerModule,
       global: true,
       providers: [
-        loggerServiceProvider,
         {
           provide: LOGGER_OPTIONS,
           useValue: options,
         },
+        LoggerService,
+        // loggerServiceProvider,
       ],
       exports: [LoggerService],
     };
