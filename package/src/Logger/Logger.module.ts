@@ -5,7 +5,7 @@ import { LoggerService } from './Logger.service';
 import {
   LOGGER_OPTIONS,
   LOGGER_SERVICE_TOKEN,
-} from './enums/ProviderNames.enum';
+} from './Symbols/ProviderNames.enum';
 
 @Module({
   imports: [LoggerModuleCore],

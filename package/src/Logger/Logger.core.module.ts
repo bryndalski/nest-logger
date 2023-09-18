@@ -3,14 +3,13 @@ import { LoggerService } from './Logger.service';
 import {
   LOGGER_OPTIONS,
   LOGGER_SERVICE_TOKEN,
-} from './enums/ProviderNames.enum';
+} from './Symbols/ProviderNames.enum';
 
 @Global()
 @Module({
   providers: [
     {
       provide: LOGGER_OPTIONS,
-      // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
       useFactory: () => ({}),
     },
     {
