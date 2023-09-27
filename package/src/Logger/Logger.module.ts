@@ -1,11 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { LoggerModuleRootOptions } from './types/LoggerModue.types';
 import { LoggerModuleCore } from './Logger.core.module';
 import { LoggerService } from './Logger.service';
 import {
   LOGGER_OPTIONS,
   LOGGER_SERVICE_TOKEN,
 } from './Symbols/ProviderNames.enum';
+import { ILoggerModuleRootOptions } from './types';
 
 @Module({
   imports: [LoggerModuleCore],
@@ -13,26 +13,22 @@ import {
   exports: [LoggerModuleCore, LoggerService],
 })
 export class LoggerModule {
-  static forRoot(options: LoggerModuleRootOptions): DynamicModule {
+  static forRoot(options: ILoggerModuleRootOptions): DynamicModule {
     const loggerServiceProvider = {
       provide: LoggerService,
       useFactory: (loggerService: LoggerService) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+        (loggerService as any).loggerNetworkOptions = options;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // LoggerService.networkOptions = options;
         return loggerService;
       },
       inject: [LOGGER_SERVICE_TOKEN, LOGGER_OPTIONS],
     };
-    console.log(options);
     return {
       module: LoggerModule,
       global: true,
-      providers: [
-        {
-          provide: LOGGER_OPTIONS,
-          useValue: options,
-        },
-        LoggerService,
-        // loggerServiceProvider,
-      ],
+      providers: [loggerServiceProvider],
       exports: [LoggerService],
     };
   }

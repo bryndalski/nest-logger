@@ -1,6 +1,6 @@
 import { LogLevel, LoggerService } from '@nestjs/common';
 
-export type LoggerModuleRootOptions = {
+export interface ILoggerModuleRootOptions extends Partial<LoggerService> {
   /**
    * Production mode. Diable sending logs to api.
    */
@@ -22,4 +22,4 @@ export type LoggerModuleRootOptions = {
    * Log levels send to api
    */
   persistLogLevels: LogLevel[];
-} & Partial<LoggerService>;
+}

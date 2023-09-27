@@ -1,31 +1,55 @@
-import { ConsoleLogger, Inject } from '@nestjs/common';
+import { ConsoleLogger, Injectable, Optional } from '@nestjs/common';
 import {
-  LOGGER_OPTIONS,
-  LOGGER_SERVICE_CONTEXT,
-} from './Symbols/ProviderNames.enum';
-import { LoggerModuleRootOptions } from './types/LoggerModue.types';
+  ILoggerModuleRootOptions,
+  ILoggerModuleRootOptionsOptional,
+} from './types';
 
+@Injectable()
 export class LoggerService extends ConsoleLogger {
+  protected networkOptions: ILoggerModuleRootOptions;
+  static networkOptions: ILoggerModuleRootOptions;
+
+  private set loggerNetworkOptions(value: ILoggerModuleRootOptions) {
+    super.log(`Initializing new logger service`);
+    LoggerService.networkOptions = value;
+    this.networkOptions = value;
+  }
+
+  private get loggerNetworkOptions(): ILoggerModuleRootOptionsOptional {
+    return this.networkOptions;
+  }
+
   constructor();
   constructor(context?: string);
-  constructor(context: string, networkOptions: LoggerModuleRootOptions);
   constructor(
-    @Inject(LOGGER_SERVICE_CONTEXT)
+    context: string,
+    networkOptions: ILoggerModuleRootOptionsOptional,
+  );
+  constructor(
+    @Optional()
     protected context?: string,
-    @Inject(LOGGER_OPTIONS)
-    private readonly networkOptions?: LoggerModuleRootOptions,
+    @Optional()
+    networkOptions?: ILoggerModuleRootOptionsOptional,
   ) {
     super();
-    console.log(networkOptions);
-    console.log(this.networkOptions);
-    super.log(this.networkOptions, this.context);
+    this.networkOptions = {
+      ...LoggerService.networkOptions,
+      ...networkOptions,
+    };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  log(message: any): void {
+  log(message: any, context?: string): void {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log({ m: message, c: this.context, n: this.networkOptions });
-    // super.log(this.context);
-    // super.log(this.networkOptions);
+    super.log(
+      {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        m: message,
+        c: context || this.context,
+        op: this.networkOptions,
+        no: LoggerService.networkOptions,
+      },
+      context || this.context,
+    );
   }
 }

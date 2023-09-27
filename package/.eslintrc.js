@@ -61,8 +61,7 @@ module.exports = {
       },
       {
         selector: 'interface',
-        prefix: ['I'],
-        format: ['camelCase'],
+        format: ['PascalCase'],
       },
     ],
     'require-await': 'off',
