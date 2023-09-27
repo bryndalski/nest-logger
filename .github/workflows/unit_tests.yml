@@ -5,7 +5,7 @@ on:
   - pull_request
 
 jobs:
-  install-dependenciel:
+  install-dependencies:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
