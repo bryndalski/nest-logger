@@ -6,9 +6,6 @@ name = "secrets"
 [[analyzers]]
 name = "docker"
 
-[[analyzers]]
-name = "javascript"
-
   [analyzers.meta]
   environment = [
     "nodejs",
