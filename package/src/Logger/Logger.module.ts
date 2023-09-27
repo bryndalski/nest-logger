@@ -17,6 +17,9 @@ export class LoggerModule {
     const loggerServiceProvider = {
       provide: LoggerService,
       useFactory: (loggerService: LoggerService) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        (loggerService as any).loggerNetworkOptions = options;
+        LoggerService.networkOptions = options;
         return loggerService;
       },
       inject: [LOGGER_SERVICE_TOKEN, LOGGER_OPTIONS],
@@ -25,14 +28,7 @@ export class LoggerModule {
     return {
       module: LoggerModule,
       global: true,
-      providers: [
-        {
-          provide: LOGGER_OPTIONS,
-          useValue: options,
-        },
-        LoggerService,
-        // loggerServiceProvider,
-      ],
+      providers: [loggerServiceProvider],
       exports: [LoggerService],
     };
   }

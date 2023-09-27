@@ -1,30 +1,45 @@
-import { ConsoleLogger, Inject } from '@nestjs/common';
-import {
-  LOGGER_OPTIONS,
-  LOGGER_SERVICE_CONTEXT,
-} from './Symbols/ProviderNames.enum';
+import { ConsoleLogger, Injectable, Optional } from '@nestjs/common';
 import { LoggerModuleRootOptions } from './types/LoggerModue.types';
 
+@Injectable()
 export class LoggerService extends ConsoleLogger {
+  private networkOptions: LoggerModuleRootOptions;
+  static networkOptions: LoggerModuleRootOptions;
+
+  private set loggerNetworkOptions(value: LoggerModuleRootOptions) {
+    console.log(
+      `Initializing new instance with value of ${JSON.stringify(value)}`,
+    );
+    this.networkOptions = { ...LoggerService.networkOptions };
+  }
+
   constructor();
   constructor(context?: string);
   constructor(context: string, networkOptions: LoggerModuleRootOptions);
   constructor(
-    @Inject(LOGGER_SERVICE_CONTEXT)
+    @Optional()
     protected context?: string,
-    @Inject(LOGGER_OPTIONS)
-    private readonly networkOptions?: LoggerModuleRootOptions,
   ) {
     super();
-    console.log(networkOptions);
-    console.log(this.networkOptions);
-    super.log(this.networkOptions, this.context);
+    console.log(`Initial ${context}`);
+
+    console.log({
+      context: this.context,
+      networkOptions: this.networkOptions,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  log(message: any): void {
+  log(message: any, context?: string): void {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log({ m: message, c: this.context, n: this.networkOptions });
+    super.log(
+      {
+        m: message,
+        c: context || this.context,
+        op: this.loggerNetworkOptions,
+      },
+      context || this.context,
+    );
     // super.log(this.context);
     // super.log(this.networkOptions);
   }
