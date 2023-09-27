@@ -1,32 +1,42 @@
 import { ConsoleLogger, Injectable, Optional } from '@nestjs/common';
-import { LoggerModuleRootOptions } from './types/LoggerModue.types';
+import {
+  ILoggerModuleRootOptions,
+  ILoggerModuleRootOptionsOptional,
+} from './types';
 
 @Injectable()
 export class LoggerService extends ConsoleLogger {
-  private networkOptions: LoggerModuleRootOptions;
-  static networkOptions: LoggerModuleRootOptions;
+  protected networkOptions: ILoggerModuleRootOptions;
+  static networkOptions: ILoggerModuleRootOptions;
 
-  private set loggerNetworkOptions(value: LoggerModuleRootOptions) {
-    console.log(
-      `Initializing new instance with value of ${JSON.stringify(value)}`,
-    );
+  private set loggerNetworkOptions(value: ILoggerModuleRootOptions) {
+    super.log(`Initializing new logger service`);
+    LoggerService.networkOptions = value;
+    this.networkOptions = value;
+  }
+
+  private get loggerNetworkOptions(): ILoggerModuleRootOptionsOptional {
     this.networkOptions = { ...LoggerService.networkOptions };
+    return this.networkOptions;
   }
 
   constructor();
   constructor(context?: string);
-  constructor(context: string, networkOptions: LoggerModuleRootOptions);
+  constructor(
+    context: string,
+    networkOptions: ILoggerModuleRootOptionsOptional,
+  );
   constructor(
     @Optional()
     protected context?: string,
+    @Optional()
+    networkOptions?: ILoggerModuleRootOptionsOptional,
   ) {
     super();
-    console.log(`Initial ${context}`);
-
-    console.log({
-      context: this.context,
-      networkOptions: this.networkOptions,
-    });
+    this.networkOptions = {
+      ...LoggerService.networkOptions,
+      ...networkOptions,
+    };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,7 +46,8 @@ export class LoggerService extends ConsoleLogger {
       {
         m: message,
         c: context || this.context,
-        op: this.loggerNetworkOptions,
+        op: this.networkOptions,
+        no: LoggerService.networkOptions,
       },
       context || this.context,
     );
