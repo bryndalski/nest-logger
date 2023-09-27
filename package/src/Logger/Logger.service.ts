@@ -40,16 +40,59 @@ export class LoggerService extends ConsoleLogger {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   log(message: any, context?: string): void {
+    //Prevents console function for loggin
+    if (
+      this.networkOptions.logLevels &&
+      !this.networkOptions.logLevels.includes('log')
+    )
+      return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log(
-      {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        m: message,
-        c: context || this.context,
-        op: this.networkOptions,
-        no: LoggerService.networkOptions,
-      },
-      context || this.context,
-    );
+    super.log(context || this.context);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error(message: any, context?: string): void {
+    //Prevents console function for loggin
+    if (
+      this.networkOptions.logLevels &&
+      !this.networkOptions.logLevels.includes('error')
+    )
+      return;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    super.error(context || this.context);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  warn(message: any, context?: string): void {
+    //Prevents console function for loggin
+    if (
+      this.networkOptions.logLevels &&
+      !this.networkOptions.logLevels.includes('warn')
+    )
+      return;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    super.error(context || this.context);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  debug(message: any, context?: string): void {
+    //Prevents console function for loggin
+    if (
+      this.networkOptions.logLevels &&
+      !this.networkOptions.logLevels.includes('debug')
+    )
+      return;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    super.error(context || this.context);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  verbose(message: any, context?: string): void {
+    //Prevents console function for loggin
+    if (
+      this.networkOptions.logLevels &&
+      !this.networkOptions.logLevels.includes('verbose')
+    )
+      return;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    super.error(context || this.context);
   }
 }
