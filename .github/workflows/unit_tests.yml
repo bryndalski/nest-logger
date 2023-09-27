@@ -7,12 +7,14 @@ on:
   push:
     branches:
       - master
+
 jobs:
   install-dependencies:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Cache node_modules
         uses: actions/cache@v2
@@ -35,9 +37,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Copy node_modules from workspace
-        run: |
-          cp -R ${{ github.workspace }}/package/node_modules ./package/
+      - name: Restore cached node_modules
+        uses: actions/cache@v2
+        with:
+          path: ./package/node_modules
+          key: npm-${{ hashFiles('./package/package-lock.json') }}
 
       - name: Run tests
         working-directory: ./package
@@ -52,11 +56,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Copy node_modules from workspace
-        run: |
-          cp -R ${{ github.workspace }}/package/node_modules ./package/
+      - name: Restore cached node_modules
+        uses: actions/cache@v2
+        with:
+          path: ./package/node_modules
+          key: npm-${{ hashFiles('./package/package-lock.json') }}
 
       - name: Run eslint
         working-directory: ./package
         run: |
           npm run lint-test
+
+# Add any additional jobs or workflow configuration as needed.
