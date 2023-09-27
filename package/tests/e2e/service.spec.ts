@@ -16,7 +16,6 @@ const optionalLoggerOptions: ILoggerModuleRootOptionsOptional = {
 };
 
 describe('Logger module', () => {
-  let logger: LoggerModule;
   let loggerService: LoggerService;
   beforeAll(async () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
