@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        working-directory: /package
+        working-directory: ./package
         run: |
           npm install
 
@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run tests
-        working-directory: /package
+        working-directory: ./package
         run: |
           npm run test
   run-eslin:
@@ -34,6 +34,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run tests
-        working-directory: /package
+        working-directory: ./package
         run: |
           npm run lint-test
