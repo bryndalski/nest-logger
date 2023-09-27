@@ -9,10 +9,9 @@ describe('Logger module', () => {
   let logger: LoggerModule;
   beforeAll(() => {
     logger = LoggerModule.forRoot(loggerOptions);
-    console.log('logger', logger);
   });
 
-  describe('root', () => {
+  describe('Module should have predefined properities', () => {
     it('Logger should be definedq"', () => {
       expect(logger).toBeDefined();
     });

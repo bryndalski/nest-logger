@@ -16,7 +16,6 @@ export class LoggerService extends ConsoleLogger {
   }
 
   private get loggerNetworkOptions(): ILoggerModuleRootOptionsOptional {
-    this.networkOptions = { ...LoggerService.networkOptions };
     return this.networkOptions;
   }
 
