@@ -54,7 +54,7 @@ describe('Allowed methods - log level tests', () => {
       'Method %s should be allowed when logs levels are %s',
       (testedLevel: LogLevel, logLevels: LogLevel[]) => {
         const internalLogger = new LoggerService('test', {
-          logLevels: logLevels,
+          logLevels,
         });
         const loggerSpyOnLog = jest.spyOn(ConsoleLogger.prototype, testedLevel);
         const sypOnLogger = jest.spyOn(internalLogger, testedLevel);
