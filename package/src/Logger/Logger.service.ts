@@ -51,7 +51,5 @@ export class LoggerService extends ConsoleLogger {
       },
       context || this.context,
     );
-    // super.log(this.context);
-    // super.log(this.networkOptions);
   }
 }
