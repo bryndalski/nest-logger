@@ -16,7 +16,6 @@ export class LoggerService extends ConsoleLogger {
   }
 
   private get loggerNetworkOptions(): ILoggerModuleRootOptionsOptional {
-    this.networkOptions = { ...LoggerService.networkOptions };
     return this.networkOptions;
   }
 
@@ -44,6 +43,7 @@ export class LoggerService extends ConsoleLogger {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.log(
       {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         m: message,
         c: context || this.context,
         op: this.networkOptions,
@@ -51,7 +51,5 @@ export class LoggerService extends ConsoleLogger {
       },
       context || this.context,
     );
-    // super.log(this.context);
-    // super.log(this.networkOptions);
   }
 }
