@@ -69,7 +69,7 @@ export class LoggerService extends ConsoleLogger {
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.error(context || this.context);
+    super.warn(context || this.context);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,7 +81,7 @@ export class LoggerService extends ConsoleLogger {
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.error(context || this.context);
+    super.debug(context || this.context);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -93,6 +93,6 @@ export class LoggerService extends ConsoleLogger {
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.error(context || this.context);
+    super.verbose(context || this.context);
   }
 }
