@@ -68,7 +68,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('log')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context, 'log');
+    // const logFormat = this.createLoggerMessage<T>(message, context, 'log');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.log(message, context || this.context);
   }
@@ -80,7 +80,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('error')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context);
+    // const logFormat = this.createLoggerMessage<T>(message, context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.error(message, context || this.context);
   }
@@ -92,7 +92,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('warn')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context, 'warn');
+    // const logFormat = this.createLoggerMessage<T>(message, context, 'warn');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.warn(message, context || this.context);
@@ -106,7 +106,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('debug')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context, 'debug');
+    // const logFormat = this.createLoggerMessage<T>(message, context, 'debug');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.debug(message, context || this.context);
@@ -120,7 +120,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('verbose')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context, 'verbose');
+    // const logFormat = this.createLoggerMessage<T>(message, context, 'verbose');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.verbose(message, context || this.context);
