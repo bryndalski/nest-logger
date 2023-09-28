@@ -13,7 +13,7 @@ import { ILoggerModuleRootOptions } from './types';
   exports: [LoggerModuleCore, LoggerService],
 })
 export class LoggerModule {
-  static forRoot(options: ILoggerModuleRootOptions): DynamicModule {
+  static register(options: ILoggerModuleRootOptions): DynamicModule {
     const loggerServiceProvider = {
       provide: LoggerService,
       useFactory: (loggerService: LoggerService) => {

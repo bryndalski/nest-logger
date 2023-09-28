@@ -2,13 +2,13 @@ import { ILoggerModuleRootOptions, LoggerModule } from '../../src';
 
 const loggerOptions: ILoggerModuleRootOptions = {
   apiToken: '1234',
-  persistLogLevels: ['debug', 'error', 'log', 'verbose', 'warn'],
+  logLevels: ['debug', 'error', 'log', 'verbose', 'warn'],
 };
 
 describe('Logger module', () => {
   let logger: LoggerModule;
   beforeAll(() => {
-    logger = LoggerModule.forRoot(loggerOptions);
+    logger = LoggerModule.register(loggerOptions);
   });
 
   describe('Module should have predefined properities', () => {
