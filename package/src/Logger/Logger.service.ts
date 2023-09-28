@@ -31,10 +31,11 @@ export class LoggerService extends ConsoleLogger {
   private createLoggerMessage<T>(
     message: T,
     context: GenericLogType<T>['context'],
+    logType: GenericLogType<T>['logType'] = 'log',
   ): GenericLogType<T> {
     return {
-      logType: 'log',
-      context,
+      logType,
+      context: context || this.context,
       message: {
         message,
         type: typeof message,
@@ -67,9 +68,9 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('log')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context);
+    const logFormat = this.createLoggerMessage<T>(message, context, 'log');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log(logFormat, context || this.context);
+    super.log(message, context || this.context);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error<T>(message: T, context?: string): void {
@@ -81,7 +82,7 @@ export class LoggerService extends ConsoleLogger {
       return;
     const logFormat = this.createLoggerMessage<T>(message, context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.error(logFormat, context || this.context);
+    super.error(message, context || this.context);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   warn<T>(message: T, context?: string): void {
@@ -91,7 +92,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('warn')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context);
+    const logFormat = this.createLoggerMessage<T>(message, context, 'warn');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.warn(message, context || this.context);
@@ -105,7 +106,7 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('debug')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context);
+    const logFormat = this.createLoggerMessage<T>(message, context, 'debug');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     super.debug(message, context || this.context);
@@ -119,9 +120,9 @@ export class LoggerService extends ConsoleLogger {
       !this.loggerOptions.logLevels.includes('verbose')
     )
       return;
-    const logFormat = this.createLoggerMessage<T>(message, context);
+    const logFormat = this.createLoggerMessage<T>(message, context, 'verbose');
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.verbose(logFormat, context || this.context);
+    super.verbose(message, context || this.context);
   }
 }
