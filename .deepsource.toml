@@ -3,9 +3,6 @@ version = 1
 [[analyzers]]
 name = "secrets"
 
-[[analyzers]]
-name = "docker"
-
   [analyzers.meta]
   environment = [
     "nodejs",
