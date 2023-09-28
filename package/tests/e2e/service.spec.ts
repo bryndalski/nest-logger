@@ -7,12 +7,12 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 const loggerOptions: ILoggerModuleRootOptions = {
   apiToken: '1234',
-  persistLogLevels: ['debug', 'error', 'log', 'verbose', 'warn'],
+  logLevels: ['debug', 'error', 'log', 'verbose', 'warn'],
 };
 
 const optionalLoggerOptions: ILoggerModuleRootOptionsOptional = {
   apiToken: 'new_api_token',
-  persistLogLevels: ['log', 'verbose', 'warn'],
+  logLevels: ['log', 'verbose', 'warn'],
 };
 
 describe('Logger module', () => {
@@ -20,7 +20,7 @@ describe('Logger module', () => {
   beforeAll(async () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const app: TestingModule = await Test.createTestingModule({
-      imports: [LoggerModule.forRoot(loggerOptions)],
+      imports: [LoggerModule.register(loggerOptions)],
       providers: [LoggerService],
     }).compile();
 
