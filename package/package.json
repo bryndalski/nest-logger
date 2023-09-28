@@ -17,7 +17,7 @@
     "lint-test": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test:unit": "jest",
+    "test": "jest",
     "test:e2e": "jest  --config ./jest-e2e.json",
     "test:watch": "jest --watch",
     "test:watchAll": "jest --watchAll --testPathPattern .*.spec.ts$",
