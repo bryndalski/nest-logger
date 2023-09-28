@@ -1,5 +1,6 @@
 import { ConsoleLogger, Injectable, Optional } from '@nestjs/common';
 import {
+  GenericLogType,
   ILoggerModuleRootOptions,
   ILoggerModuleRootOptionsOptional,
 } from './types';
@@ -9,6 +10,9 @@ export class LoggerService extends ConsoleLogger {
   protected loggerOptions: ILoggerModuleRootOptions;
   static loggerOptions: ILoggerModuleRootOptions;
 
+  /**
+   * Initializes logger options
+   */
   private set loggerloggerOptions(value: ILoggerModuleRootOptions) {
     super.log(`Initializing new logger service`);
     LoggerService.loggerOptions = value;
@@ -17,6 +21,26 @@ export class LoggerService extends ConsoleLogger {
 
   private get loggerloggerOptions(): ILoggerModuleRootOptionsOptional {
     return this.loggerOptions;
+  }
+
+  /**
+   * Creates logger message
+   * @param message <T> Message param type
+   * @returns GenericLogType<T> message which should be displayed with logger
+   */
+  private createLoggerMessage<T>(
+    message: T,
+    context: GenericLogType<T>['context'],
+  ): GenericLogType<T> {
+    return {
+      logType: 'log',
+      context,
+      message: {
+        message,
+        type: typeof message,
+      },
+      logTimestamp: new Date(),
+    };
   }
 
   constructor();
@@ -36,15 +60,16 @@ export class LoggerService extends ConsoleLogger {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  log(message: any, context?: string): void {
+  log<T>(message: T, context?: string): void {
     //Prevents console function for loggin
     if (
       this.loggerOptions.logLevels &&
       !this.loggerOptions.logLevels.includes('log')
     )
       return;
+    const logFormat = this.createLoggerMessage<T>(message, context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log(message, context || this.context);
+    super.log(logFormat, context || this.context);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error(message: any, context?: string): void {
