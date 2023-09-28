@@ -1,4 +1,5 @@
-import { LogLevel, LoggerService } from '@nestjs/common';
+import { LogLevel, LoggerService, Type } from '@nestjs/common';
+import { Interface } from 'readline';
 
 export interface ILoggerModuleRootOptions extends Partial<LoggerService> {
   /**
@@ -27,4 +28,9 @@ export interface ILoggerModuleRootOptions extends Partial<LoggerService> {
    * @example ['log', 'error']
    */
   apiLogLevels?: LogLevel[];
+
+  /**
+   * Forces log schema. If not set, schema will be ignored.
+   */
+  logSchema?: Interface | Type;
 }

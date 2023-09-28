@@ -32,19 +32,17 @@ describe('Logger module', () => {
       expect(loggerService).toBeDefined();
     });
 
-    it('Logger should have properity "networkOptions"', () => {
-      expect(loggerService).toHaveProperty('networkOptions');
+    it('Logger should have properity "loggerOptions"', () => {
+      expect(loggerService).toHaveProperty('loggerOptions');
     });
 
     it('Network options should equal loggerOptions, passed to forRoot method', () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      expect((loggerService as any).loggerNetworkOptions).toEqual(
-        loggerOptions,
-      );
+      expect((loggerService as any).loggerloggerOptions).toEqual(loggerOptions);
     });
 
-    it('Logger should have Static properity, networkOptions', () => {
-      expect(LoggerService.networkOptions).toEqual(loggerOptions);
+    it('Logger should have Static properity, loggerOptions', () => {
+      expect(LoggerService.loggerOptions).toEqual(loggerOptions);
     });
   });
 
@@ -60,13 +58,13 @@ describe('Logger module', () => {
 
     it('New logger instance should have updated configuration equal to optionalLoggerOptions', () => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      expect((newLoggerService as any).loggerNetworkOptions).toEqual(
+      expect((newLoggerService as any).loggerloggerOptions).toEqual(
         optionalLoggerOptions,
       );
     });
 
     it('Expect logger static to remain unchanged', () => {
-      expect(LoggerService.networkOptions).toEqual(loggerOptions);
+      expect(LoggerService.loggerOptions).toEqual(loggerOptions);
     });
   });
 });

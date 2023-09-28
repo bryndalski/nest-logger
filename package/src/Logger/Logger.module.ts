@@ -18,9 +18,9 @@ export class LoggerModule {
       provide: LoggerService,
       useFactory: (loggerService: LoggerService) => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-        (loggerService as any).loggerNetworkOptions = options;
+        (loggerService as any).loggerloggerOptions = options;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        // LoggerService.networkOptions = options;
+        // LoggerService.loggerOptions = options;
         return loggerService;
       },
       inject: [LOGGER_SERVICE_TOKEN, LOGGER_OPTIONS],

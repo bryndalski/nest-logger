@@ -6,35 +6,32 @@ import {
 
 @Injectable()
 export class LoggerService extends ConsoleLogger {
-  protected networkOptions: ILoggerModuleRootOptions;
-  static networkOptions: ILoggerModuleRootOptions;
+  protected loggerOptions: ILoggerModuleRootOptions;
+  static loggerOptions: ILoggerModuleRootOptions;
 
-  private set loggerNetworkOptions(value: ILoggerModuleRootOptions) {
+  private set loggerloggerOptions(value: ILoggerModuleRootOptions) {
     super.log(`Initializing new logger service`);
-    LoggerService.networkOptions = value;
-    this.networkOptions = value;
+    LoggerService.loggerOptions = value;
+    this.loggerOptions = value;
   }
 
-  private get loggerNetworkOptions(): ILoggerModuleRootOptionsOptional {
-    return this.networkOptions;
+  private get loggerloggerOptions(): ILoggerModuleRootOptionsOptional {
+    return this.loggerOptions;
   }
 
   constructor();
   constructor(context?: string);
-  constructor(
-    context: string,
-    networkOptions: ILoggerModuleRootOptionsOptional,
-  );
+  constructor(context: string, loggerOptions: ILoggerModuleRootOptionsOptional);
   constructor(
     @Optional()
     protected context?: string,
     @Optional()
-    networkOptions?: ILoggerModuleRootOptionsOptional,
+    loggerOptions?: ILoggerModuleRootOptionsOptional,
   ) {
     super();
-    this.networkOptions = {
-      ...LoggerService.networkOptions,
-      ...networkOptions,
+    this.loggerOptions = {
+      ...LoggerService.loggerOptions,
+      ...loggerOptions,
     };
   }
 
@@ -42,57 +39,57 @@ export class LoggerService extends ConsoleLogger {
   log(message: any, context?: string): void {
     //Prevents console function for loggin
     if (
-      this.networkOptions.logLevels &&
-      !this.networkOptions.logLevels.includes('log')
+      this.loggerOptions.logLevels &&
+      !this.loggerOptions.logLevels.includes('log')
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.log(context || this.context);
+    super.log(message, context || this.context);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error(message: any, context?: string): void {
     //Prevents console function for loggin
     if (
-      this.networkOptions.logLevels &&
-      !this.networkOptions.logLevels.includes('error')
+      this.loggerOptions.logLevels &&
+      !this.loggerOptions.logLevels.includes('error')
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.error(context || this.context);
+    super.error(message, context || this.context);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   warn(message: any, context?: string): void {
     //Prevents console function for loggin
     if (
-      this.networkOptions.logLevels &&
-      !this.networkOptions.logLevels.includes('warn')
+      this.loggerOptions.logLevels &&
+      !this.loggerOptions.logLevels.includes('warn')
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.warn(context || this.context);
+    super.warn(message, context || this.context);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   debug(message: any, context?: string): void {
     //Prevents console function for loggin
     if (
-      this.networkOptions.logLevels &&
-      !this.networkOptions.logLevels.includes('debug')
+      this.loggerOptions.logLevels &&
+      !this.loggerOptions.logLevels.includes('debug')
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.debug(context || this.context);
+    super.debug(message, context || this.context);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   verbose(message: any, context?: string): void {
     //Prevents console function for loggin
     if (
-      this.networkOptions.logLevels &&
-      !this.networkOptions.logLevels.includes('verbose')
+      this.loggerOptions.logLevels &&
+      !this.loggerOptions.logLevels.includes('verbose')
     )
       return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    super.verbose(context || this.context);
+    super.verbose(message, context || this.context);
   }
 }
